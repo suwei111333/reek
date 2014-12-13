@@ -54,7 +54,7 @@ module Reek
         class Normal < Base
           def gather_results
             examiners.each_with_object([]) { |examiner, smells| smells << examiner.smells }.
-                             flatten
+              flatten
           end
         end
       end
