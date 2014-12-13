@@ -4,9 +4,9 @@ require 'reek/smell_warning'
 include Reek
 
 describe SmellWarning do
-  let(:duplication_detector)      { build(:smell_detector, smell_type: 'DuplicateMethodCall')}
-  let(:feature_envy_detector)     { build(:smell_detector, smell_type: 'FeatureEnvy')}
-  let(:utility_function_detector) { build(:smell_detector, smell_type: 'UtilityFunction')}
+  let(:duplication_detector)      { build(:smell_detector, smell_type: 'DuplicateMethodCall') }
+  let(:feature_envy_detector)     { build(:smell_detector, smell_type: 'FeatureEnvy') }
+  let(:utility_function_detector) { build(:smell_detector, smell_type: 'UtilityFunction') }
 
   context 'sort order' do
     shared_examples_for 'first sorts ahead of second' do
