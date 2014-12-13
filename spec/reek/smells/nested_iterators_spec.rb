@@ -5,7 +5,6 @@ require 'reek/smells/smell_detector_shared'
 include Reek::Smells
 
 describe NestedIterators do
-
   context 'with no iterators' do
     it 'reports no smells' do
       src = 'def fred() nothing = true; end'

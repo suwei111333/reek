@@ -6,7 +6,6 @@ include Reek
 include Reek::Smells
 
 describe LongParameterList do
-
   context 'for methods with few parameters' do
     it 'should report nothing for no parameters' do
       expect('def simple; f(3);true; end').not_to smell_of(LongParameterList)

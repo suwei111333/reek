@@ -152,7 +152,6 @@ EOS
                               { UncommunicativeVariableName::VARIABLE_NAME_KEY => 'y' },
                               UncommunicativeVariableName::VARIABLE_NAME_KEY => 'z')
     end
-
   end
 
   context 'when a smell is reported' do

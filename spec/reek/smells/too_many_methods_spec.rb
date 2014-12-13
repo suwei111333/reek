@@ -16,7 +16,6 @@ describe TooManyMethods do
   it_should_behave_like 'SmellDetector'
 
   context 'counting methods' do
-
     it 'should not report 25 methods' do
       src = <<EOS
 # smelly class for testing purposes

@@ -6,9 +6,7 @@ include Reek
 include Reek::Smells
 
 describe UnusedParameters do
-
   context 'for methods' do
-
     it 'reports nothing for no parameters' do
       expect('def simple; true end').not_to smell_of(UnusedParameters)
     end

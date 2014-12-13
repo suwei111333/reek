@@ -8,7 +8,6 @@ include Reek
 include Reek::Smells
 
 describe DuplicateMethodCall do
-
   context 'when a smell is reported' do
     before :each do
       @source_name = 'copy-cat'
