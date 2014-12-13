@@ -110,7 +110,7 @@ describe SmellWarning do
         @parameters = { 'one' => 34, 'two' => 'second' }
         @detector = Reek::Smells::FeatureEnvy.new @source
         @warning = SmellWarning.new(@detector, context: @context_name, lines: @lines, message: @message,
-                                    parameters: @parameters)
+                                               parameters: @parameters)
         @yaml = @warning.to_yaml
       end
 

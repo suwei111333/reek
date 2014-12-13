@@ -12,8 +12,8 @@ describe SmellConfiguration do
   context 'when overriding default configs' do
     before(:each) do
       @base_config = { 'enabled' => true, 'exclude' => [],
-                      'reject' => [/^.$/, /[0-9]$/, /[A-Z]/],
-                      'accept' => ['_'] }
+                       'reject' => [/^.$/, /[0-9]$/, /[A-Z]/],
+                       'accept' => ['_'] }
       @smell_config = SmellConfiguration.new(@base_config)
     end
 
@@ -26,8 +26,8 @@ describe SmellConfiguration do
 
     it 'should override single values' do
       expect(@smell_config.merge!('enabled' => false)).to eq('enabled' => false, 'exclude' => [],
-                                                          'reject' => [/^.$/, /[0-9]$/, /[A-Z]/],
-                                                          'accept' => ['_'])
+                                                             'reject' => [/^.$/, /[0-9]$/, /[A-Z]/],
+                                                             'accept' => ['_'])
     end
 
     it 'should override arrays of values' do
@@ -40,8 +40,8 @@ describe SmellConfiguration do
     it 'should override multiple values' do
       expect(@smell_config.merge!('enabled' => false, 'accept' => [/[A-Z]$/])).to eq(
                            'enabled' => false, 'exclude' => [],
-                            'reject' => [/^.$/, /[0-9]$/, /[A-Z]/],
-                            'accept' => [/[A-Z]$/]
+                           'reject' => [/^.$/, /[0-9]$/, /[A-Z]/],
+                           'accept' => [/[A-Z]$/]
       )
     end
   end
