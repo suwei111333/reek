@@ -71,10 +71,6 @@ Style/MultilineBlockChain:
 Style/PerlBackrefs:
   Enabled: false
 
-# Allow subsequent method calls to align parameters
-Style/SingleSpaceBeforeFirstArg:
-  Enabled: false
-
 # Only register TrivialAccessors offenses when the name matches
 Style/TrivialAccessors:
   ExactNameMatch: true
