@@ -5,6 +5,8 @@ AllCops:
 
 # Be a little more lenient with line length
 Metrics/LineLength:
+  Exclude:
+    - lib/reek/cli/options.rb
   Max: 92
 
 # Allow small arrays of words with quotes
@@ -41,6 +43,10 @@ Style/MultilineBlockChain:
 
 # Allow Perl-style references to regex matches
 Style/PerlBackrefs:
+  Enabled: false
+
+# Allow subsequent method calls to align parameters
+Style/SingleSpaceBeforeFirstArg:
   Enabled: false
 
 # Only register TrivialAccessors offenses when the name matches
