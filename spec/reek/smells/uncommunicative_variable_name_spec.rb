@@ -28,7 +28,8 @@ describe UncommunicativeVariableName do
 
   context 'local variable name' do
     it 'does not report one-word variable name' do
-      expect('def help(fred) simple = jim(45) end').not_to smell_of(UncommunicativeVariableName)
+      expect('def help(fred) simple = jim(45) end').
+        not_to smell_of(UncommunicativeVariableName)
     end
 
     it 'does not report single underscore as a variable name' do
@@ -60,7 +61,8 @@ describe UncommunicativeVariableName do
       smells = @detector.examine_context(ctx)
       expect(smells.length).to eq(1)
       expect(smells[0].smell_type).to eq(UncommunicativeVariableName.smell_type)
-      expect(smells[0].parameters[UncommunicativeVariableName::VARIABLE_NAME_KEY]).to eq('x')
+      variable_name_key = UncommunicativeVariableName::VARIABLE_NAME_KEY
+      expect(smells[0].parameters[variable_name_key]).to eq('x')
       expect(smells[0].lines).to eq([1, 1])
     end
 
@@ -173,7 +175,8 @@ EOS
     it_should_behave_like 'common fields set correctly'
 
     it 'reports the correct values' do
-      expect(@warning.parameters[UncommunicativeVariableName::VARIABLE_NAME_KEY]).to eq('x2')
+      variable_name_key = UncommunicativeVariableName::VARIABLE_NAME_KEY
+      expect(@warning.parameters[variable_name_key]).to eq('x2')
       expect(@warning.lines).to eq([3, 5])
     end
   end

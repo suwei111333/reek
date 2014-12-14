@@ -17,10 +17,15 @@ describe LongParameterList do
       expect('def simple(yep,zero) f(3);true end').not_to smell_of(LongParameterList)
     end
     it 'should not count an optional block' do
-      expect('def simple(alpha, yep, zero, &opt) f(3);true end').not_to smell_of(LongParameterList)
+      src = 'def simple(alpha, yep, zero, &opt) f(3); true end'
+      expect(src).not_to smell_of(LongParameterList)
     end
     it 'should not report inner block with too many parameters' do
-      src = 'def simple(yep,zero); m[3]; rand(34); f.each { |arga, argb, argc, argd| true}; end'
+      src = '
+        def simple(yep,zero)
+          m[3]; rand(34); f.each { |arga, argb, argc, argd| true}
+        end
+      '
       expect(src).not_to smell_of(LongParameterList)
     end
 
@@ -29,10 +34,12 @@ describe LongParameterList do
         expect('def simple(zero=nil) f(3);false end').not_to smell_of(LongParameterList)
       end
       it 'should report nothing for 2 parameters with 1 default' do
-        expect('def simple(yep, zero=nil) f(3);false end').not_to smell_of(LongParameterList)
+        source = 'def simple(yep, zero=nil) f(3); false end'
+        expect(source).not_to smell_of(LongParameterList)
       end
       it 'should report nothing for 2 defaulted parameters' do
-        expect('def simple(yep=4, zero=nil) f(3);false end').not_to smell_of(LongParameterList)
+        source = 'def simple(yep=4, zero=nil) f(3); false end'
+        expect(source).not_to smell_of(LongParameterList)
       end
     end
   end
@@ -40,21 +47,25 @@ describe LongParameterList do
   describe 'for methods with too many parameters' do
     it 'should report 4 parameters' do
       src = 'def simple(arga, argb, argc, argd) f(3);true end'
-      expect(src).to smell_of(LongParameterList, LongParameterList::PARAMETER_COUNT_KEY => 4)
+      parameter_count_key = LongParameterList::PARAMETER_COUNT_KEY
+      expect(src).to smell_of(LongParameterList, parameter_count_key => 4)
     end
     it 'should report 8 parameters' do
       src = 'def simple(arga, argb, argc, argd,arge, argf, argg, argh) f(3);true end'
-      expect(src).to smell_of(LongParameterList, LongParameterList::PARAMETER_COUNT_KEY => 8)
+      parameter_count_key = LongParameterList::PARAMETER_COUNT_KEY
+      expect(src).to smell_of(LongParameterList, parameter_count_key => 8)
     end
 
     describe 'and default values' do
       it 'should report 3 with 1 defaulted' do
         src = 'def simple(polly, queue, yep, zero=nil) f(3);false end'
-        expect(src).to smell_of(LongParameterList, LongParameterList::PARAMETER_COUNT_KEY => 4)
+        parameter_count_key = LongParameterList::PARAMETER_COUNT_KEY
+        expect(src).to smell_of(LongParameterList, parameter_count_key => 4)
       end
       it 'should report with 3 defaulted' do
         src = 'def simple(aarg, polly=2, yep=:truth, zero=nil) f(3);false end'
-        expect(src).to smell_of(LongParameterList, LongParameterList::PARAMETER_COUNT_KEY => 4)
+        parameter_count_key = LongParameterList::PARAMETER_COUNT_KEY
+        expect(src).to smell_of(LongParameterList, parameter_count_key => 4)
       end
     end
   end

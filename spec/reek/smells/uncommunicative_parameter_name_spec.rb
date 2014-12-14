@@ -46,8 +46,8 @@ describe UncommunicativeParameterName do
 
       it 'reports long name ending in a number' do
         src = "def #{host}help(param2) basics(param2) end"
-        expect(src).to smell_of(UncommunicativeParameterName,
-                                UncommunicativeParameterName::PARAMETER_NAME_KEY => 'param2')
+        key = UncommunicativeParameterName::PARAMETER_NAME_KEY
+        expect(src).to smell_of(UncommunicativeParameterName, key => 'param2')
       end
 
       it 'does not report unused anonymous parameter' do
@@ -78,7 +78,8 @@ describe UncommunicativeParameterName do
     it_should_behave_like 'common fields set correctly'
 
     it 'reports the correct values' do
-      expect(@warning.parameters[UncommunicativeParameterName::PARAMETER_NAME_KEY]).to eq('bad2')
+      parameter_name_key = UncommunicativeParameterName::PARAMETER_NAME_KEY
+      expect(@warning.parameters[parameter_name_key]).to eq('bad2')
       expect(@warning.lines).to eq([1])
     end
   end

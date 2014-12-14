@@ -39,20 +39,24 @@ EOS
   context 'with repeated method calls' do
     it 'reports repeated call' do
       src = 'def double_thing() @other.thing + @other.thing end'
-      expect(src).to smell_of(DuplicateMethodCall, DuplicateMethodCall::CALL_KEY => '@other.thing')
+      key = DuplicateMethodCall::CALL_KEY
+      expect(src).to smell_of(DuplicateMethodCall, key => '@other.thing')
     end
     it 'reports repeated call to lvar' do
       src = 'def double_thing(other) other[@thing] + other[@thing] end'
-      expect(src).to smell_of(DuplicateMethodCall, DuplicateMethodCall::CALL_KEY => 'other[@thing]')
+      key = DuplicateMethodCall::CALL_KEY
+      expect(src).to smell_of(DuplicateMethodCall, key => 'other[@thing]')
     end
     it 'reports call parameters' do
       src = 'def double_thing() @other.thing(2,3) + @other.thing(2,3) end'
-      expect(src).to smell_of(DuplicateMethodCall, DuplicateMethodCall::CALL_KEY => '@other.thing(2, 3)')
+      key = DuplicateMethodCall::CALL_KEY
+      expect(src).to smell_of(DuplicateMethodCall, key => '@other.thing(2, 3)')
     end
     it 'should report nested calls' do
       src = 'def double_thing() @other.thing.foo + @other.thing.foo end'
-      expect(src).to smell_of(DuplicateMethodCall, { DuplicateMethodCall::CALL_KEY => '@other.thing' },
-                              DuplicateMethodCall::CALL_KEY => '@other.thing.foo')
+      key = DuplicateMethodCall::CALL_KEY
+      expect(src).to smell_of(DuplicateMethodCall, { key => '@other.thing' },
+                              key => '@other.thing.foo')
     end
     it 'should ignore calls to new' do
       src = 'def double_thing() @other.new + @other.new end'
@@ -123,7 +127,8 @@ EOS
   context 'with repeated attribute assignment' do
     it 'reports repeated assignment' do
       src = 'def double_thing(thing) @other[thing] = true; @other[thing] = true; end'
-      expect(src).to smell_of(DuplicateMethodCall, DuplicateMethodCall::CALL_KEY => '@other[thing] = true')
+      key = DuplicateMethodCall::CALL_KEY
+      expect(src).to smell_of(DuplicateMethodCall, key => '@other[thing] = true')
     end
     it 'does not report multi-assignments' do
       src = <<EOS
@@ -160,8 +165,15 @@ EOS
       expect(src).not_to smell_of(DuplicateMethodCall).with_config(@config)
     end
     it 'reports quadruple calls' do
-      src = 'def double_thing() @other.thing + @other.thing + @other.thing + @other.thing end'
-      expect(src).to smell_of(DuplicateMethodCall, DuplicateMethodCall::CALL_KEY => '@other.thing', DuplicateMethodCall::OCCURRENCES_KEY => 4).with_config(@config)
+      src = '
+        def double_thing()
+          @other.thing + @other.thing + @other.thing + @other.thing
+        end
+      '
+      expect(src).to smell_of(DuplicateMethodCall,
+                              DuplicateMethodCall::CALL_KEY => '@other.thing',
+                              DuplicateMethodCall::OCCURRENCES_KEY => 4).
+        with_config(@config)
     end
   end
 
@@ -175,11 +187,15 @@ EOS
     end
     it 'reports calls to other methods' do
       src = 'def double_other_thing() @other.thing + @other.thing end'
-      expect(src).to smell_of(DuplicateMethodCall, DuplicateMethodCall::CALL_KEY => '@other.thing').with_config(@config)
+      expect(src).to smell_of(DuplicateMethodCall,
+                              DuplicateMethodCall::CALL_KEY => '@other.thing').
+        with_config(@config)
     end
     it 'does not report calls to methods specifed with a regular expression' do
       src = 'def double_puts() puts @other.thing; puts @other.thing end'
-      expect(src).to smell_of(DuplicateMethodCall, DuplicateMethodCall::CALL_KEY => '@other.thing').with_config(@config)
+      expect(src).to smell_of(DuplicateMethodCall,
+                              DuplicateMethodCall::CALL_KEY => '@other.thing').
+        with_config(@config)
     end
   end
 end

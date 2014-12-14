@@ -71,7 +71,8 @@ describe ShouldReekOnlyOf do
       detector = build(:smell_detector, smell_type: @expected_smell_type.to_s)
       [
         build(:smell_warning, smell_detector: control_couple_detector),
-        build(:smell_warning, smell_detector: detector, message: "message mentioning #{@expected_context_name}")
+        build(:smell_warning, smell_detector: detector,
+                              message: "message mentioning #{@expected_context_name}")
       ]
     end
 
@@ -82,7 +83,8 @@ describe ShouldReekOnlyOf do
     def smells
       detector = build(:smell_detector, smell_type: @expected_smell_type.to_s)
 
-      [build(:smell_warning, smell_detector: detector, message: "message mentioning #{@expected_context_name}")]
+      [build(:smell_warning, smell_detector: detector,
+                             message: "message mentioning #{@expected_context_name}")]
     end
     it 'matches' do
       expect(@match).to be_truthy

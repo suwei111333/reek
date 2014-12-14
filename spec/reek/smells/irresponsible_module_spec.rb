@@ -38,7 +38,8 @@ describe IrresponsibleModule do
     expect(smells[0].smell_category).to eq(IrresponsibleModule.smell_category)
     expect(smells[0].smell_type).to eq(IrresponsibleModule.smell_type)
     expect(smells[0].lines).to eq([1])
-    expect(smells[0].parameters[IrresponsibleModule::MODULE_NAME_KEY]).to eq(@bad_module_name)
+    module_name_key = IrresponsibleModule::MODULE_NAME_KEY
+    expect(smells[0].parameters[module_name_key]).to eq(@bad_module_name)
   end
 
   it 'reports a class with an empty comment' do

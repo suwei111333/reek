@@ -41,7 +41,8 @@ EOS
       expect(@smells[0].parameters[DataClump::OCCURRENCES_KEY]).to eq(3)
     end
     it 'reports all methods' do
-      expect(@smells[0].parameters[DataClump::METHODS_KEY]).to eq(['first', 'second', 'third'])
+      expect(@smells[0].parameters[DataClump::METHODS_KEY]).
+        to eq(['first', 'second', 'third'])
     end
     it 'reports the declaration line numbers' do
       expect(@smells[0].lines).to eq([2, 3, 4])
